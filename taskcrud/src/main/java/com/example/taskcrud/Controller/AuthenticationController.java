@@ -3,7 +3,7 @@ package com.example.taskcrud.Controller;
 import com.example.taskcrud.entity.response.UpdatePasswordResponse;
 import com.example.taskcrud.entity.request.AuthenticationRequest;
 import com.example.taskcrud.entity.response.AuthenticationResponse;
-import com.example.taskcrud.Impl.AuthenticationService;
+import com.example.taskcrud.service.AuthenticationService;
 import com.example.taskcrud.entity.request.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -29,5 +29,16 @@ public class Channel {
     @ManyToMany(mappedBy = "channels")
     private List<AppUser> users;
 
+    public void addUser(AppUser user) {
+        if (!users.contains(user)) {
+            users.add(user);
+            user.getChannels().add(this);
+        }
+    }
 
+    // Method to remove a user from the channel (assuming appropriate access control)
+    public void removeUser(AppUser user) {
+        users.remove(user);
+        user.getChannels().remove(this);
+    }
 }

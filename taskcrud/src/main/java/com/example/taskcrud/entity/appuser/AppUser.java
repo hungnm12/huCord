@@ -34,7 +34,8 @@ public class AppUser implements UserDetails {
     @Enumerated(EnumType.STRING)
     private AppUserRole appUSerRole;
 
-
+    @ManyToMany(mappedBy = "users") // 'users' refers to the field in Channel class
+    private List<Channel> channels = new ArrayList<>();
 
 
 

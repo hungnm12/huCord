@@ -1,6 +1,6 @@
 package com.example.taskcrud.security.config;
 
-import com.example.taskcrud.Impl.AuthenticationService;
+import com.example.taskcrud.service.AuthenticationService;
 import com.example.taskcrud.Repository.IAppUserRepository;
 import com.example.taskcrud.entity.appuser.AppUser;
 import com.example.taskcrud.entity.chat.ChatMessage;

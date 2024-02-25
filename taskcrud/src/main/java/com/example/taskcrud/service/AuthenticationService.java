@@ -1,4 +1,4 @@
-package com.example.taskcrud.Impl;
+package com.example.taskcrud.service;
 
 import com.example.taskcrud.Repository.IAppUserRepository;
 import com.example.taskcrud.entity.appuser.AppUser;
