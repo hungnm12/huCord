@@ -1,37 +1,32 @@
 package com.example.taskcrud.Controller;
 
-import com.example.taskcrud.Repository.IChatMassegeRepository;
-import com.example.taskcrud.entity.ChatMessage;
-import com.example.taskcrud.service.ChatService;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
+import com.example.taskcrud.entity.appuser.AppUser;
+import com.example.taskcrud.entity.appuser.ChatMessage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.security.Principal;
 
 @Controller
-@RequestMapping("/api/v1/chat")
 public class ChatController {
 
-    private  SimpMessagingTemplate messagingTemplate;
-    private  ChatService chatService;
-    private IChatMassegeRepository chatMassegeRepository;
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
+    @MessageMapping("/chat")
+    public void sendMessage(@Payload ChatMessage message, Principal principal) {
+        // Lấy thông tin người gửi từ AppUser
+        AppUser sender = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+        // Tạo message mới
+        ChatMessage newMessage = new ChatMessage();
+        newMessage.setSender(sender.getFullName());
+        newMessage.setContent(message.getContent());
 
-    @MessageMapping("/chat.sendMessage/{channelId}")
-    public void sendMessage(@Payload ChatMessage chatMessage, @DestinationVariable Long channelId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String senderUsername = authentication.getName();
-        chatService.save(chatMessage, channelId);
-        messagingTemplate.convertAndSend("/topic/channel/" + channelId, chatMessage);
-    }
-
-    @MessageMapping("/chat.getChatMessages/{channelId}")
-    public void getChatMessages(@DestinationVariable Long channelId) {
-        messagingTemplate.convertAndSend("/topic/channel/" + channelId, chatService.getChatMessages(channelId));
+        // Gửi message đến tất cả người dùng
+        simpMessagingTemplate.convertAndSend("/topic/chat", newMessage);
     }
 }

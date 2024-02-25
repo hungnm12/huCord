@@ -2,7 +2,6 @@ package com.example.taskcrud.entity.appuser;
 
 
 import com.example.taskcrud.entity.AppUserRole;
-import com.example.taskcrud.entity.Channel;
 import com.example.taskcrud.entity.Token;
 import jakarta.persistence.*;
 import lombok.*;
@@ -34,11 +33,7 @@ public class AppUser implements UserDetails {
     @Enumerated(EnumType.STRING)
     private AppUserRole appUSerRole;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_channels",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "channel_id"))
-    private Set<Channel> channels = new HashSet<>();
+
 
 
 
