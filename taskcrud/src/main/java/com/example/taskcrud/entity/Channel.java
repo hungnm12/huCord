@@ -1,44 +1,27 @@
 package com.example.taskcrud.entity;
 
 import com.example.taskcrud.entity.appuser.AppUser;
-import com.example.taskcrud.entity.chat.ChatMessage;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table(name = "channels")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Transactional
-@Table(name = "channel")
 public class Channel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long channelId;
+    private Long id;
 
     private String name;
 
-    @OneToMany(mappedBy = "channel")
-    private List<ChatMessage> messages;
-
     @ManyToMany(mappedBy = "channels")
-    private List<AppUser> users;
+    private Set<AppUser> users = new HashSet<>();
 
-    public void addUser(AppUser user) {
-        if (!users.contains(user)) {
-            users.add(user);
-            user.getChannels().add(this);
-        }
-    }
-
-    // Method to remove a user from the channel (assuming appropriate access control)
-    public void removeUser(AppUser user) {
-        users.remove(user);
-        user.getChannels().remove(this);
-    }
 }

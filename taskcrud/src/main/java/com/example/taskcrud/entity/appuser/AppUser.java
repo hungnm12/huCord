@@ -23,7 +23,7 @@ public class AppUser implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String fullName;
     private String email;
     private String password;
@@ -34,20 +34,20 @@ public class AppUser implements UserDetails {
     @Enumerated(EnumType.STRING)
     private AppUserRole appUSerRole;
 
-    @ManyToMany(mappedBy = "users") // 'users' refers to the field in Channel class
-    private List<Channel> channels = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_channels",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "channel_id"))
+    private Set<Channel> channels = new HashSet<>();
 
 
 
 
 
-    //    phuwong thức tra về các GrantedAuthority mà người dùng được phân quyền
-//    Ví dụ, một GrantedAuthority có thể đại diện cho quyền truy cập vào trang quản trị,
-//    một quyền truy cập vào trang xem thông tin cá nhân, hoặc một quyền truy cập vào các tính năng của ứng dụng.
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-// tạo ra 1 grantedAuthority tu 1 tham so truền vào
-//        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(appUSerRole.name());
+
         List<GrantedAuthority>grantedAuthorities = List.of(new SimpleGrantedAuthority(appUSerRole.name()));
         return grantedAuthorities;
     }

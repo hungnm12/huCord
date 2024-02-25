@@ -24,10 +24,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     public AuthenticationResponse register(RegisterRequest request){
         var x =  repository.findByEmail(request.getEmail());
-        if(x.isPresent())
-        {
-            return AuthenticationResponse.builder().exist(true).noticeIfUserExist("The user is exist in the database").build();
-        }
+
         var user = AppUser.builder()
                 .email(request.getEmail())
                 .fullName(request.getFullName())
@@ -46,14 +43,14 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        var user = repository.findByEmail(request.getEmail()).orElseThrow();
+        var user = repository.findByEmail(request.getEmail());
 
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
 
     public String changeUserPassword(UpdatePasswordResponse updatePasswordResponse) {
-        var user = repository.findByEmail( updatePasswordResponse.getEmail()).orElseThrow(() -> new UsernameNotFoundException("User not found with email: " ));
+        var user = repository.findByEmail( updatePasswordResponse.getEmail());
         user.setFullname(updatePasswordResponse.getNewFullname());
         user.setPassWord(passwordEncoder.encode(updatePasswordResponse.getNewPassword()));
         repository.save(user);
