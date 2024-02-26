@@ -10,8 +10,6 @@ import java.util.Optional;
 
 public interface IAppUserRepository extends JpaRepository<AppUser,Integer> {
 
-
-
     AppUser findByEmail (String email);
 
 

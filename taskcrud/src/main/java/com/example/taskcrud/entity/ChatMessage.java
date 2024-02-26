@@ -1,5 +1,6 @@
 package com.example.taskcrud.entity;
 
+import com.example.taskcrud.entity.appuser.AppUser;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,9 +14,16 @@ public class ChatMessage {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private String sender;
+
+  @ManyToOne
+  private AppUser sender;
+//  private String sender;
   private String content;
   @ManyToOne
   @JoinColumn(name = "channel_id")
   private Channel channel;
+
+  private LocalDateTime timestamp;
+
+
 }

@@ -3,6 +3,7 @@ package com.example.taskcrud.entity.appuser;
 
 import com.example.taskcrud.entity.AppUserRole;
 import com.example.taskcrud.entity.Channel;
+import com.example.taskcrud.entity.ChatMessage;
 import com.example.taskcrud.entity.Token;
 import jakarta.persistence.*;
 import lombok.*;
@@ -37,6 +38,8 @@ public class AppUser implements UserDetails {
 
     @ManyToMany(mappedBy = "users")
     private List<Channel> channels = new ArrayList<>();
+
+
 
 
 

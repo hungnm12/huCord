@@ -23,8 +23,8 @@ public class Channel {
             inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"))
     private List<AppUser> users = new ArrayList<>();
 
-    @OneToMany(mappedBy = "channel")
-    private List<ChatMessage> chatMessages = new ArrayList<>();
+//    @OneToMany(mappedBy = "channel")
+//    private List<ChatMessage> chatMessages = new ArrayList<>();
 
     public List<AppUser> getUsers() {
         return users;

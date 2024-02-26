@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/huCord.iml" filepath="$PROJECT_DIR$/.idea/huCord.iml" />
-      <module fileurl="file://$PROJECT_DIR$/taskcrud/taskcrud.iml" filepath="$PROJECT_DIR$/taskcrud/taskcrud.iml" />
     </modules>
   </component>
 </project>
