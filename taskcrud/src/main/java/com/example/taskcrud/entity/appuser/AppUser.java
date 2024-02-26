@@ -2,6 +2,7 @@ package com.example.taskcrud.entity.appuser;
 
 
 import com.example.taskcrud.entity.AppUserRole;
+import com.example.taskcrud.entity.Channel;
 import com.example.taskcrud.entity.Token;
 import jakarta.persistence.*;
 import lombok.*;
@@ -10,6 +11,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.nio.channels.Channels;
 import java.util.*;
 
 @Data
@@ -33,11 +35,28 @@ public class AppUser implements UserDetails {
     @Enumerated(EnumType.STRING)
     private AppUserRole appUSerRole;
 
+    @ManyToMany(mappedBy = "users")
+    private List<Channel> channels = new ArrayList<>();
 
 
 
+    public List<Channel> getChannels() {
+        return channels;
+    }
 
+    public void addChannel(Channel channel){
+        if(!channels.contains(channel)){
+            channels.add(channel);
+            channel.getUsers().add(this);
+        }
+    }
 
+    public void removeChannel(Channel channel){
+        if ((channels.contains(channel))){
+            channels.remove(channel);
+            channel.getUsers().remove(this);
+        }
+    }
 
 
     @Override
@@ -46,6 +65,7 @@ public class AppUser implements UserDetails {
         List<GrantedAuthority>grantedAuthorities = List.of(new SimpleGrantedAuthority(appUSerRole.name()));
         return grantedAuthorities;
     }
+
 
     @Override
     public String getPassword() {

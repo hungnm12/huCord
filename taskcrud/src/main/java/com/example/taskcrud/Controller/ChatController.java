@@ -1,7 +1,7 @@
 package com.example.taskcrud.Controller;
 
 import com.example.taskcrud.entity.appuser.AppUser;
-import com.example.taskcrud.entity.appuser.ChatMessage;
+import com.example.taskcrud.entity.ChatMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -16,7 +16,7 @@ public class ChatController {
 
     @Autowired
     private SimpMessagingTemplate simpMessagingTemplate;
-    @MessageMapping("/chat")
+    @MessageMapping("api/chat")
     public void sendMessage(@Payload ChatMessage message, Principal principal) {
         // Lấy thông tin người gửi từ AppUser
         AppUser sender = (AppUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
