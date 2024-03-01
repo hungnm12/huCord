@@ -1,6 +1,5 @@
 package com.example.taskcrud.entity;
 
-import com.example.taskcrud.entity.appuser.AppUser;
 import jakarta.persistence.*;
 @Entity
 public class Token {

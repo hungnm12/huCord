@@ -1,6 +1,5 @@
 package com.example.taskcrud.entity;
 
-import com.example.taskcrud.entity.appuser.AppUser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

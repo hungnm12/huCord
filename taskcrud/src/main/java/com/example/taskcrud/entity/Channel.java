@@ -1,8 +1,8 @@
 package com.example.taskcrud.entity;
 
-import com.example.taskcrud.entity.appuser.AppUser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Table(name = "channel")
 public class Channel {
     @Id

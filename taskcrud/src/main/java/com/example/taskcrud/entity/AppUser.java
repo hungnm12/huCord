@@ -1,4 +1,4 @@
-package com.example.taskcrud.entity.appuser;
+package com.example.taskcrud.entity;
 
 
 import com.example.taskcrud.entity.AppUserRole;

@@ -1,7 +1,7 @@
 package com.example.taskcrud.utils;
 
 import com.example.taskcrud.Repository.IAppUserRepository;
-import com.example.taskcrud.entity.appuser.AppUser;
+import com.example.taskcrud.entity.AppUser;
 import com.example.taskcrud.security.config.JwtService;
 
 public class JwtUtils {
